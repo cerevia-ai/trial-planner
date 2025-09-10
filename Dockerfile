@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8080
 
 # Run Streamlit app
-CMD ["streamlit", "run", "cvd_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
