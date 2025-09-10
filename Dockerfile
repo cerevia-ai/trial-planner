@@ -28,6 +28,11 @@ COPY . .
 # Expose Streamlit default port
 EXPOSE 8080
 
+ENV STREAMLIT_SERVER_HEADLESS=true
+ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+ENV STREAMLIT_SERVER_PORT=8080
+
 # Run Streamlit app
-CMD ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app.py"]
+
 
