@@ -1,4 +1,8 @@
-# Use official slim Python image
+# -----------------------------
+# Dockerfile for Streamlit app (AWS App Runner)
+# -----------------------------
+
+# Use official Python slim image
 FROM python:3.11-slim
 
 # Set working directory
@@ -16,23 +20,21 @@ RUN apt-get update && apt-get install -y \
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Copy dependencies first (for caching)
+# Copy requirements and install
 COPY requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app code
 COPY . .
 
-# Expose Streamlit default port
+# Expose Streamlit port
 EXPOSE 8080
 
+# Streamlit environment variables for headless deployment
 ENV STREAMLIT_SERVER_HEADLESS=true
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 ENV STREAMLIT_SERVER_PORT=8080
+ENV PYTHONUNBUFFERED=1
 
-# Run Streamlit app
-CMD ["streamlit", "run", "app.py"]
-
-
+# Command to run the app
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0"]
